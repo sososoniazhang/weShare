@@ -31,7 +31,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) {
         try {
-            const user = await User.findByIdAndDelete(req.params.userId);
+            await User.findByIdAndDelete(req.params.userId);
             res.status(200).json("account has been removed");
 
         } catch (err) {

@@ -43,7 +43,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         max: 100,
     },
-
+    posts: {
+        type: Array,
+        default: [],
+    }
 }, 
     {timestamps:true}
 );
