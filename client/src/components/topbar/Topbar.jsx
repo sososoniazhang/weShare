@@ -1,11 +1,18 @@
 import React from "react";
 import "./topbar.css"
+import {
+  Link
+} from "react-router-dom";
+
 
 export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">WeShare</span>
+        <Link to="/" style={{textDecoration: 'none'}}>
+          <span className="logo">WeShare</span>
+        </Link>
+        
       </div>
       <div className="topbarCenter">
         <div className="searchbar">

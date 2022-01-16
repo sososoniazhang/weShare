@@ -13,6 +13,8 @@ router.post("/new", async (req, res)=> {
             location: req.body.location,
             date: req.body.date,
             link: req.body.link,
+            org: req.body.org,
+            screenshot: req.body.screenshot,
         })
         const post = await newPost.save();
         await user.updateOne({$push: {posts: post._id}});
@@ -76,7 +78,7 @@ router.put('/:id/like', async (req, res) => {
     }
     
 });
-// unfollow user
+// unlike post
 router.put('/:id/unlike', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
@@ -144,12 +146,12 @@ router.get('/:id', async (req, res) => {
 
 
 // timeline posts for a user
-router.get("/timeline/all", async (req , res)=> {
+router.get("/timeline/:userId", async (req , res)=> {
     try {
-        const user = await User.findById(req.body.userId);
-        let userPosts = await Post.find({userId: req.body.userId});
+        const user = await User.findById(req.params.userId);
+        let userPosts = await Post.find({userId: user._id});
         let followingPosts = await Promise.all(
-            user.followings.map((firendsId) => {Post.find({userId: firendsId})})
+            user.followings.map((firendsId) => {return Post.find({userId: firendsId})})
         )
         let allPosts = userPosts.concat(...followingPosts);
         res.status(200).json(allPosts);
