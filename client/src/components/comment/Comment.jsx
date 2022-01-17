@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 
 export default function Comment({ comment }) {
+
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState([]);
     useEffect(()=>{
       const fetchUsers = async()=>{
@@ -16,7 +18,7 @@ export default function Comment({ comment }) {
         <div className="commentHeader">
             <img
                 className="commentCommentProfileImg"
-                src={user.profilePicture}
+                src={PF+user.profilePicture}
                 alt=""
             />
             <span className="commentCommentUsername">

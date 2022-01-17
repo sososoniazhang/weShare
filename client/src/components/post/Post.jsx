@@ -27,7 +27,7 @@ export default function Post({ post }) {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={user.profilePicture || PF+"person/noUser.jpeg"}
+              src={PF+user.profilePicture || PF+"person/noUser.jpeg"}
               alt=""
             />
             <span className="postUsername">
@@ -63,15 +63,22 @@ export default function Post({ post }) {
               </div>
             <span className="postContentItemText">{post.org}</span>
             </div>
-          </div>
             
+          </div>
+          <div className="postContent">
+              <div className="postContentIcon">
+                  <span class="material-icons">link</span>
+              </div>
+              <span className="postContentItemText">{post.link}</span>
+            </div>
+          
             {/* <div className="postContentIcon">
                 <span class="material-icons">groups</span>
             </div>
             <span className="postContentItemText">Organization</span> */}
             
           
-          <img className="postImg" src={PF+post.photo} alt="" />
+          <img className="postImg" src={PF+post.screenshot} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
