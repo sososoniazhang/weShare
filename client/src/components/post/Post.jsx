@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 
 export default function Post({ post }) {
-  const [like,setLike] = useState(post.like);
+  const [like,setLike] = useState(post.likes.length);
   const [isLiked,setIsLiked] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -12,11 +12,11 @@ export default function Post({ post }) {
     setLike(isLiked ? like-1 : like+1)
     setIsLiked(!isLiked)
   }
-  const [Users, setUser] = useState([]);
+  const [user, setUser] = useState([]);
   useEffect(()=>{
     const fetchUsers = async()=>{
       const res = await axios.get(`users/${post.userId}`)
-      console.log(res)
+      setUser(res.data)
     }
     fetchUsers()
   }, [])
@@ -27,11 +27,11 @@ export default function Post({ post }) {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={Users.profilePicture}
+              src={user.profilePicture || PF+"person/noUser.jpeg"}
               alt=""
             />
             <span className="postUsername">
-              {Users.username}
+              {user.username}
             </span>
             <span className="postDate">{post.date}</span>
           </div>
@@ -40,27 +40,28 @@ export default function Post({ post }) {
           </div>
         </div>
         <div className="postCenter">
-        <span className="postTitle">{post?.desc}</span>
+        <span className="postTitle">{post?.title}</span>
           <div className="postContents">
             <div className="postContent">
               <div className="postContentIcon">
                   <span class="material-icons">today</span>
               </div>
-              <span className="postContentItemText">Date/Time</span>
+              <span className="postContentItemText">{post.date}</span>
+              
             </div>
               
             <div className="postContent">
               <div className="postContentIcon">
                   <span class="material-icons">place</span>
               </div>
-            <span className="postContentItemText">Location</span>
+            <span className="postContentItemText">{post.location}</span>
             </div>
 
             <div className="postContent">
               <div className="postContentIcon">
                   <span class="material-icons">groups</span>
               </div>
-            <span className="postContentItemText">Organization</span>
+            <span className="postContentItemText">{post.org}</span>
             </div>
           </div>
             
@@ -79,14 +80,15 @@ export default function Post({ post }) {
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText">{post.comments.length} comments</span>
           </div>
         </div>
         <hr className="postBottomHr" />
-        <div className="postBottomBottom">
-          <Comment key={post._id} post={post}/>
-          <Comment key={post._id} post={post}/>
-        </div>
+          <div className="postBottomBottom">
+            {post.comments.map((c) => (
+              <Comment key={c._id} comment={c} />
+            ))}
+          </div>
       </div>
     </div>
   );

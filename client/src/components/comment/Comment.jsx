@@ -1,22 +1,31 @@
 import "./comment.css";
-import { Users } from "../../dummyData";
+import { useState, useEffect } from "react";
+import axios from "axios"
 
-export default function Comment({ post }) {
+export default function Comment({ comment }) {
+    const [user, setUser] = useState([]);
+    useEffect(()=>{
+      const fetchUsers = async()=>{
+        const res = await axios.get(`users/${comment.userId}`)
+        setUser(res.data)
+      }
+      fetchUsers()
+    }, [])
   return (
       <div>
         <div className="commentHeader">
             <img
-                className="postCommentProfileImg"
-                src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
+                className="commentCommentProfileImg"
+                src={user.profilePicture}
                 alt=""
             />
-            <span className="postCommentUsername">
-                {Users.filter((u) => u.id === post?.userId)[0].username}
+            <span className="commentCommentUsername">
+                {user.username}
             </span>
-            <span className="commentDate">{post.date}</span>
+            <span className="commentDate">{comment.date}</span>
         </div>
         <div className="commentContent">
-            <span className="commentText">This is the content</span>
+            <span className="commentText">{comment.content}</span>
         </div>
       </div>
     

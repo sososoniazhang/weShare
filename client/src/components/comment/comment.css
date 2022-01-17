@@ -1,12 +1,12 @@
 
-.postCommentProfileImg{
+.commentCommentProfileImg{
     width: 20px;
     height: 20px;
     border-radius: 50%;
     object-fit: cover;
     margin-top: 0px;
 }
-.postCommentUsername {
+.commentCommentUsername {
     font-size: 15px;
     font-weight: 500;
     margin: 0 10px;
