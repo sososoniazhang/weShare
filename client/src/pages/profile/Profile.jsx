@@ -28,7 +28,7 @@ export default function Profile() {
               
               <img
                 className="profileCoverImg"
-                src={PF+user.coverPicture || PF+"person/coverImg1.png"}
+                src={PF+user.coverPicture || `${PF}person/coverImg1.png`}
                 alt=""
               />
               <img
