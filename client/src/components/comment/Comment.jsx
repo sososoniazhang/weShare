@@ -8,7 +8,7 @@ export default function Comment({ comment }) {
     const [user, setUser] = useState([]);
     useEffect(()=>{
       const fetchUsers = async()=>{
-        const res = await axios.get(`users/${comment.userId}`)
+        const res = await axios.get(`/users?userId=${comment.userId}`)
         setUser(res.data)
       }
       fetchUsers()

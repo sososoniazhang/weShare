@@ -2,6 +2,11 @@ import "./post.css";
 import Comment from "../comment/Comment";
 import { useState, useEffect } from "react";
 import axios from "axios"
+import {format} from "timeago.js"
+import {
+  Link
+} from "react-router-dom";
+
 
 export default function Post({ post }) {
   const [like,setLike] = useState(post.likes.length);
@@ -15,25 +20,28 @@ export default function Post({ post }) {
   const [user, setUser] = useState([]);
   useEffect(()=>{
     const fetchUsers = async()=>{
-      const res = await axios.get(`users/${post.userId}`)
+      const res = await axios.get(`/users?userId=${post.userId}`)
       setUser(res.data)
     }
     fetchUsers()
-  }, [])
+  }, [post.userId])
   return (
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              className="postProfileImg"
-              src={PF+user.profilePicture || PF+"person/noUser.jpeg"}
-              alt=""
-            />
+            <Link to={`profile/${post.username}`} style={{textDecoration: 'none'}}>
+              <img
+                className="postProfileImg"
+                src={PF+user.profilePicture || PF+"person/noUser.jpeg"}
+                alt=""
+              />
+            </Link>
+            
             <span className="postUsername">
               {user.username}
             </span>
-            <span className="postDate">{post.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
           <span class="material-icons">more_vert</span>
@@ -47,6 +55,13 @@ export default function Post({ post }) {
                   <span class="material-icons">today</span>
               </div>
               <span className="postContentItemText">{post.date}</span>
+              
+            </div>
+            <div className="postContent">
+              <div className="postContentIcon">
+                  <span class="material-icons">schedule</span>
+              </div>
+              <span className="postContentItemText">{post.time}</span>
               
             </div>
               

@@ -19,7 +19,13 @@ export default function Share() {
                   <div className="shareIcon">
                     <span class="material-icons">today</span>
                   </div>
-                    <span className="shareOptionText">Date/time</span>
+                    <span className="shareOptionText">Date</span>
+                </div>
+                <div className="shareOption">
+                  <div className="shareIcon">
+                    <span class="material-icons">schedule</span>
+                  </div>
+                    <span className="shareOptionText">Time</span>
                 </div>
                 
                 <div className="shareOption">
